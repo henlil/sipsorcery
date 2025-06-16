@@ -123,7 +123,7 @@ namespace SIPSorcery.SIP
         /// <returns>A socket error with the result of the cancel.</returns>
         public void CancelCall()
         {
-            if (TransactionState == SIPTransactionStatesEnum.Calling || TransactionState == SIPTransactionStatesEnum.Trying || TransactionState == SIPTransactionStatesEnum.Proceeding)
+            if (TransactionState == SIPTransactionStatesEnum.Calling || TransactionState == SIPTransactionStatesEnum.Trying || TransactionState == SIPTransactionStatesEnum.Proceeding || TransactionState == SIPTransactionStatesEnum.Completed)
             {
                 base.UpdateTransactionState(SIPTransactionStatesEnum.Cancelled);
                 UASInviteTransactionCancelled?.Invoke(this);
@@ -134,7 +134,7 @@ namespace SIPSorcery.SIP
             }
             else
             {
-                logger.LogWarning("A request was made to cancel transaction " + TransactionId + " that was not in the calling, trying or proceeding states, state=" + TransactionState + ".");
+                logger.LogWarning("A request was made to cancel transaction " + TransactionId + " that was not in the calling, trying, proceeding or completed states, state=" + TransactionState + ".");
             }
         }
 
